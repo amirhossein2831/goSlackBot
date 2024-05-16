@@ -7,16 +7,6 @@ import (
 	"strconv"
 )
 
-func PrintCommandEvent(events <-chan *slacker.CommandEvent) {
-	for event := range events {
-		println("Command event is fired")
-		println(event.Command)
-		println(event.Parameters)
-		println(event.Event)
-		println("***********************")
-	}
-}
-
 func HandleAgeCommand(botCtx slacker.BotContext, r slacker.Request, w slacker.ResponseWriter) {
 	year := r.Param("year")
 	yob, err := strconv.Atoi(year)
@@ -32,4 +22,15 @@ func HandleAgeCommand(botCtx slacker.BotContext, r slacker.Request, w slacker.Re
 		log.Fatal(err)
 	}
 
+}
+
+func HandleWelcomeCommand(botCtx slacker.BotContext, r slacker.Request, w slacker.ResponseWriter) {
+	name := r.Param("name")
+
+	res := fmt.Sprintf("hi %v,welcome to our bot,i am goSlack and i'm here to helo,what can i do for you?", name)
+
+	err := w.Reply(res)
+	if err != nil {
+		log.Fatal(err)
+	}
 }

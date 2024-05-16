@@ -24,6 +24,7 @@ func main() {
 
 	// define the Commands below
 	controller.AgeCommand(bot)
+	controller.WelcomeCommand(bot)
 
 	// log the running commands
 	go controller.PrintCommandEvent(bot.CommandEvents())

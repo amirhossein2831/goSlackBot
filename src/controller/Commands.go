@@ -10,3 +10,12 @@ func AgeCommand(bot *slacker.Slacker) {
 	})
 
 }
+
+func WelcomeCommand(bot *slacker.Slacker) {
+	bot.Command("Hi,i'm <name>", &slacker.CommandDefinition{
+		Description: "say welcome to user",
+		Examples:    []string{"Hi,i'm <name>"},
+		Handler:     HandleWelcomeCommand,
+	})
+
+}

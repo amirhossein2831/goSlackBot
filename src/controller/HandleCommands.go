@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"github.com/shomali11/slacker"
 	"log"
+	"net"
 	"strconv"
+	"strings"
 )
 
 func HandleAgeCommand(botCtx slacker.BotContext, r slacker.Request, w slacker.ResponseWriter) {
@@ -64,6 +66,57 @@ func HandleKnowPeopleCommand(botCtx slacker.BotContext, r slacker.Request, w sla
 	}
 
 	err := w.Reply(res)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func HandleCheckValidDomainCommand(context slacker.BotContext, r slacker.Request, w slacker.ResponseWriter) {
+	domain := r.Param("domain")
+
+	var hasMx, hasSPF, hasDMARC bool
+	var SPFRecord, DMARCRecord string
+
+	mxRecords, err := net.LookupMX(domain)
+	if err != nil {
+		println(err)
+		return
+	}
+	if len(mxRecords) > 0 {
+		hasMx = true
+	}
+
+	txtRecords, err := net.LookupTXT(domain)
+	if err != nil {
+		println(err)
+		return
+	}
+
+	for _, txtRecord := range txtRecords {
+		if strings.HasPrefix(txtRecord, "v=spf1") {
+			hasSPF = true
+			SPFRecord = txtRecord
+			break
+		}
+	}
+
+	txtRecords, err = net.LookupTXT("_dmarc." + domain)
+	if err != nil {
+		println(err)
+		return
+	}
+
+	for _, txtRecord := range txtRecords {
+		if strings.HasPrefix(txtRecord, "v=DMARC1") {
+			hasDMARC = true
+			DMARCRecord = txtRecord
+			break
+		}
+	}
+
+	res := fmt.Sprintf("the Domain: %v\nhasMx: %v\nhasSPF: %v so SPFRecord: %v\nhasDMARC: %v so DMARCRecord: %v\n", domain, hasMx, hasSPF, SPFRecord, hasDMARC, DMARCRecord)
+
+	err = w.Reply(res)
 	if err != nil {
 		log.Fatal(err)
 	}

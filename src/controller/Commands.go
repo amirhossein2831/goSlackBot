@@ -53,3 +53,11 @@ func KnowPeopleIICommand(bot *slacker.Slacker) {
 		Handler:     HandleKnowPeopleCommand,
 	})
 }
+
+func CheckValidDomainCommand(bot *slacker.Slacker) {
+	bot.Command("is <domain> a valid domain", &slacker.CommandDefinition{
+		Description: "check the validation of a domain",
+		Examples:    []string{"is gmail.com a valid domain"},
+		Handler:     HandleCheckValidDomainCommand,
+	})
+}

@@ -29,6 +29,7 @@ func main() {
 	controller.EOLWOFCommand(bot)
 	controller.KnowPeopleCommand(bot)
 	controller.KnowPeopleIICommand(bot)
+	controller.CheckValidDomainCommand(bot)
 
 	// log the running commands
 	go controller.PrintCommandEvent(bot.CommandEvents())

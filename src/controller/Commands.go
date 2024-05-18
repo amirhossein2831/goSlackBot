@@ -19,3 +19,37 @@ func WelcomeCommand(bot *slacker.Slacker) {
 	})
 
 }
+
+func WhatsUpCommand(bot *slacker.Slacker) {
+	bot.Command("so what's up bro", &slacker.CommandDefinition{
+		Description: "talk about the situation",
+		Examples:    []string{"so what's up bro"},
+		Handler:     HandleWhatUpCommand,
+	})
+
+}
+
+func EOLWOFCommand(bot *slacker.Slacker) {
+	bot.Command("say something to member of EOLWOF channel", &slacker.CommandDefinition{
+		Description: "talk about some things",
+		Examples:    []string{"say something to member of EOLWOF channel"},
+		Handler:     HandleEOLWOFCommand,
+	})
+
+}
+
+func KnowPeopleCommand(bot *slacker.Slacker) {
+	bot.Command("do you know <name> <family>", &slacker.CommandDefinition{
+		Description: "talk about people",
+		Examples:    []string{"do you know mobin zaki"},
+		Handler:     HandleKnowPeopleCommand,
+	})
+}
+
+func KnowPeopleIICommand(bot *slacker.Slacker) {
+	bot.Command("what about <name> <family>", &slacker.CommandDefinition{
+		Description: "talk about people",
+		Examples:    []string{"what about mobin zaki"},
+		Handler:     HandleKnowPeopleCommand,
+	})
+}

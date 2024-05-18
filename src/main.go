@@ -25,6 +25,10 @@ func main() {
 	// define the Commands below
 	controller.AgeCommand(bot)
 	controller.WelcomeCommand(bot)
+	controller.WhatsUpCommand(bot)
+	controller.EOLWOFCommand(bot)
+	controller.KnowPeopleCommand(bot)
+	controller.KnowPeopleIICommand(bot)
 
 	// log the running commands
 	go controller.PrintCommandEvent(bot.CommandEvents())
